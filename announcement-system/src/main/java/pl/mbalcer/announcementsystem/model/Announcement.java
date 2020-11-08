@@ -22,6 +22,7 @@ public class Announcement {
     @Size(max = 4000)
     private String description;
     private Double price;
+    private String photoUrl;
 
     @ManyToOne
     private Category category;
@@ -29,6 +30,6 @@ public class Announcement {
     @ManyToOne
     private Place place;
 
-    
-
+    @ManyToOne
+    private User user;
 }
