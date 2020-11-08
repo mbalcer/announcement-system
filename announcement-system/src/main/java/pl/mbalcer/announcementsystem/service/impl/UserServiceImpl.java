@@ -1,11 +1,15 @@
 package pl.mbalcer.announcementsystem.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.mbalcer.announcementsystem.model.User;
 import pl.mbalcer.announcementsystem.payload.UserDTO;
+import pl.mbalcer.announcementsystem.payload.response.MessageResponse;
 import pl.mbalcer.announcementsystem.repository.UserRepository;
+import pl.mbalcer.announcementsystem.security.service.UserDetailsImpl;
 import pl.mbalcer.announcementsystem.service.UserService;
 
 import java.util.List;
@@ -48,12 +52,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> updateUser(UserDTO userRequest, Long id) {
+    public ResponseEntity<?> update(UserDTO userRequest, Long id) {
         log.info("Request to update user: " + userRequest);
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty())
             return ResponseEntity.notFound().build();
         User user = userOptional.get();
+        if(!userDetails.getUsername().equals(user.getUsername()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Error: You can't update another user"));
         if (userRequest.getEmail() != null) user.setEmail(userRequest.getEmail());
         if (userRequest.getFirstName() != null) user.setFirstName(userRequest.getFirstName());
         if (userRequest.getLastName() != null) user.setLastName(userRequest.getLastName());
