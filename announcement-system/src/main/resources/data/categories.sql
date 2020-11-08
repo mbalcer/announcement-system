@@ -1,0 +1,15 @@
+INSERT INTO categories(name) VALUES
+('Motoryzacja'),
+('Nieruchomości'),
+('Praca'),
+('Elektronika'),
+('Dom i ogród'),
+('Dla dziecka'),
+('Moda'),
+('Usługi'),
+('Sport'),
+('Rozrywka'),
+('Rolnictwo'),
+('Zwierzęta'),
+('Zdrowie i uroda'),
+('Inne');
