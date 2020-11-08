@@ -18,9 +18,10 @@ import pl.mbalcer.announcementsystem.repository.RoleRepository;
 import pl.mbalcer.announcementsystem.repository.UserRepository;
 import pl.mbalcer.announcementsystem.security.jwt.JwtUtils;
 import pl.mbalcer.announcementsystem.security.service.UserDetailsImpl;
+import pl.mbalcer.announcementsystem.service.AuthService;
 
 @Service
-public class AuthServiceImpl {
+public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
