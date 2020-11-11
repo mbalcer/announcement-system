@@ -31,4 +31,13 @@ export class TokenStorageService {
   public getUser() {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
+
+  public isLogged() {
+    const userKey = sessionStorage.getItem(USER_KEY);
+    if (userKey == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

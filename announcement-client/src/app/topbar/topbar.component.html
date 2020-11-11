@@ -1,1 +1,17 @@
-<p>topbar works!</p>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Strona z ogłoszeniami</span>
+  <span class="spacer"></span>
+  <button mat-raised-button class="example-icon" aria-label="Sign in button" *ngIf="!loggedUser">
+    <span>Zaloguj się</span>
+  </button>
+  <button mat-button class="example-icon" aria-label="Profile button" *ngIf="loggedUser">
+    <mat-icon>person</mat-icon>
+    <span>Mój profil</span>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Sign out button" *ngIf="loggedUser">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
+</mat-toolbar>

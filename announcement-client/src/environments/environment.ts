@@ -4,7 +4,7 @@
 
 export const environment = {
   mainUrl: 'http://localhost:8080',
-  apiUrl: this.mainUrl + '/api',
+  apiUrl: 'http://localhost:8080/api',
   production: false
 };
 
