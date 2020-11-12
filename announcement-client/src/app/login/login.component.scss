@@ -1,0 +1,53 @@
+.login-page {
+  width: 400px;
+  margin: 8em auto;
+  background: #ffffff;
+  text-align: center;
+  border: 1px solid #ababab;
+
+  h2 {
+    font-size: 32px;
+    margin: 1.5em 0;
+  }
+
+  .form-group {
+    margin: 1.5em auto;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+
+    label {
+      text-align: left;
+      color: grey;
+    }
+
+    .form-input {
+      padding: 0.75em;
+      background: #efefef;
+      border: 1px solid #efefef;
+    }
+
+    button {
+      padding: 0.3em;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  .register {
+    display: block;
+    margin: 3em 0;
+    font-size: 12px;
+    color: gray;
+
+    .color-link {
+      text-decoration: none;
+      color: #ec407a;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
