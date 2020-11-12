@@ -11,7 +11,7 @@
     <mat-icon>person</mat-icon>
     <span>Mój profil</span>
   </button>
-  <button mat-icon-button class="example-icon" routerLink="/logout" aria-label="Sign out button" *ngIf="loggedUser">
+  <button mat-icon-button class="example-icon" (click)="logout()" aria-label="Sign out button" *ngIf="loggedUser">
     <mat-icon>power_settings_new</mat-icon>
   </button>
 </mat-toolbar>

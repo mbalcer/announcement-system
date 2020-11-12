@@ -44,8 +44,8 @@
       <button mat-raised-button color="primary">Zarejestruj się</button>
     </div>
 
-    <div class="message" *ngIf="f.submitted">
-      <div class="error" *ngIf="!isSuccessfulRegister">{{errorMessage}}</div>
+    <div class="message">
+      <div class="error" *ngIf="!isSuccessfulRegister && f.submitted">{{errorMessage}}</div>
       <div class="success" *ngIf="isSuccessfulRegister">Your registration is successful!</div>
     </div>
 

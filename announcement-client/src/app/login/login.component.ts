@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
-        this.router.navigateByUrl('/');
+        window.location.pathname = '/';
       },
       err => {
         if (err.error.message) {
