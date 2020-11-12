@@ -12,6 +12,7 @@ import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {AuthInterceptor} from './utils/auth.interceptor';
 import {TopbarComponent} from './topbar/topbar.component';
+import {ProfileComponent} from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {TopbarComponent} from './topbar/topbar.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    TopbarComponent
+    TopbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
