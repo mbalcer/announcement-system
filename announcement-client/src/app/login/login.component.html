@@ -1,18 +1,31 @@
 <div class="login-page">
   <h2>Zaloguj się</h2>
-  <form>
+  <form (ngSubmit)="f.form.valid && signIn()" #f="ngForm" novalidate>
     <div class="form-group">
       <label for="username">Login</label>
-      <input type="text" class="form-input" name="username" [(ngModel)]="form.username">
+      <input type="text" class="form-input" name="username" [(ngModel)]="form.username" required #username="ngModel">
+      <div class="message" role="alert" *ngIf="f.submitted && username.invalid">
+        <div class="error" *ngIf="username.errors.required">Username is required!</div>
+      </div>
+
     </div>
 
     <div class="form-group">
       <label for="password">Hasło</label>
-      <input type="password" class="form-input" name="password" [(ngModel)]="form.password">
+      <input type="password" class="form-input" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel">
+      <div class="message" role="alert" *ngIf="f.submitted && password.invalid">
+        <div class="error" *ngIf="password.errors.required">Password is required</div>
+        <div class="error" *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+      </div>
+
     </div>
 
     <div class="form-group">
-      <button mat-raised-button color="primary" (click)="signIn()">Zaloguj się</button>
+      <button mat-raised-button color="primary">Zaloguj się</button>
+    </div>
+
+    <div class="message" *ngIf="f.submitted">
+      <div class="error" *ngIf="errorMessage != null">{{errorMessage}}</div>
     </div>
 
     <span class="register">Nie masz jeszcze konta? <a class="color-link" routerLink="/register">Zarejestruj się</a></span>

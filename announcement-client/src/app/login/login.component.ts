@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {TokenStorageService} from '../services/token-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,9 @@ import {TokenStorageService} from '../services/token-storage.service';
 })
 export class LoginComponent implements OnInit {
   form: any = {};
+  errorMessage = null;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -20,9 +22,14 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.jwt);
         this.tokenStorage.saveUser(data);
+        this.router.navigateByUrl('/');
       },
       err => {
-        console.log(err);
+        if (err.error.message) {
+          this.errorMessage = err.error.message;
+        } else {
+          this.errorMessage = 'Nieprawidłowy login lub hasło';
+        }
       });
   }
 
