@@ -10,6 +10,8 @@ import java.util.List;
 public interface AnnouncementService {
     List<Announcement> findAll();
 
+    List<Announcement> findLatest(Long number);
+
     List<Announcement> findAllByCategory(String category);
 
     List<Announcement> findAllByCity(String city);

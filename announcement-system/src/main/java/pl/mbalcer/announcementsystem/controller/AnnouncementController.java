@@ -22,6 +22,11 @@ public class AnnouncementController {
         return announcementService.findAll();
     }
 
+    @GetMapping("/latest/{number}")
+    public List<Announcement> getRandomAnnouncements(@PathVariable Long number) {
+        return announcementService.findLatest(number);
+    }
+
     @GetMapping("/category/{category}")
     public List<Announcement> getAllAnnouncementsByCategory(@PathVariable String category) {
         return announcementService.findAllByCategory(category);

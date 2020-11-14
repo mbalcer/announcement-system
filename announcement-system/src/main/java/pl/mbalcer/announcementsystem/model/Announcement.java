@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +24,7 @@ public class Announcement {
     private String description;
     private Double price;
     private String photoUrl;
+    private LocalDateTime dateTime = LocalDateTime.now();
 
     @ManyToOne
     private Category category;

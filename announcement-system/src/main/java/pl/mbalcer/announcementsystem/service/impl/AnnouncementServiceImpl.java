@@ -10,8 +10,10 @@ import pl.mbalcer.announcementsystem.repository.AnnouncementRepository;
 import pl.mbalcer.announcementsystem.service.AnnouncementService;
 
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -26,6 +28,16 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public List<Announcement> findAll() {
         log.info("Request to get all announcements");
         return announcementRepository.findAll();
+    }
+
+    @Override
+    public List<Announcement> findLatest(Long number) {
+        log.info("Request to get "+ number +" latest announcements");
+        return announcementRepository.findAll()
+                .stream()
+                .sorted(Comparator.nullsLast((a1, a2) -> a2.getDateTime().compareTo(a1.getDateTime())))
+                .limit(number)
+                .collect(Collectors.toList());
     }
 
     @Override
