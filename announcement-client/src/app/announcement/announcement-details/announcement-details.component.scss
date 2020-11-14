@@ -1,0 +1,51 @@
+.details-page {
+  width: 100%;
+  background: #efefef;
+}
+
+.announcement-details-page {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+
+  > * {
+    background: #ffffff;
+    padding: 1em;
+    margin-top: 1em;
+  }
+
+  .picture img {
+    max-width: 600px;
+  }
+
+  mat-divider {
+    margin: 1.5em 0;
+  }
+
+  .info-about-announcement {
+    display: flex;
+    flex-direction: row;
+
+    > * {
+      width: 30%;
+      margin: 0 1.5%;
+      text-align: center;
+    }
+  }
+
+  .user-info {
+    font-size: 16px;
+    margin-bottom: 1em;
+
+    .name {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    > div {
+      margin-top: 1em;
+    }
+  }
+}
+

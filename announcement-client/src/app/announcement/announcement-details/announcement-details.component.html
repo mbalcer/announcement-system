@@ -1,1 +1,29 @@
-<p>announcement-details works!</p>
+<div class="details-page">
+  <div class="announcement-details-page">
+    <h1>{{activeAnnouncement.title}}</h1>
+    <div class="picture">
+      <img src="../../../assets/files/template.jpg" alt="Photo template">
+    </div>
+    <div class="description">
+      <h2>Cena: {{activeAnnouncement.price}} zł</h2>
+      <h2>Opis</h2>
+      <p>
+        {{activeAnnouncement.description}}
+      </p>
+      <mat-divider></mat-divider>
+      <div class="info-about-announcement">
+        <div class="category">{{activeAnnouncement.category.name}}</div> |
+        <div class="place">{{activeAnnouncement.place.city}}</div> |
+        <div class="time">{{activeAnnouncement.dateTime}}</div>
+      </div>
+    </div>
+    <div class="user-info">
+      <h2>Użytkownik</h2>
+      <div class="name">{{activeAnnouncement.user.firstName}} {{activeAnnouncement.user.lastName}}</div>
+      <mat-divider></mat-divider>
+      <div class="phone-number">Numer telefonu: {{activeAnnouncement.user.phoneNumber}}</div>
+      <mat-divider></mat-divider>
+      <div class="email">Email: {{activeAnnouncement.user.email}}</div>
+    </div>
+  </div>
+</div>

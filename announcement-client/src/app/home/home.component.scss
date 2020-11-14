@@ -41,6 +41,11 @@
   margin: 0 auto;
 }
 
+.example-card {
+  margin: 0.5em;
+  cursor: pointer;
+}
+
 .title-card {
   height: 60px;
   font-size: 18px;
@@ -53,10 +58,4 @@
 .card-time {
   font-size: 12px;
   color: #ababab;
-}
-
-
-.example-card {
-  margin: 0.5em;
-
 }

@@ -26,7 +26,7 @@
     <h2>Ostatnie ogłoszenia</h2>
     <div class="announcements row">
       <div class="card-element col-md-4 col-sm-6" *ngFor="let announcement of announcements">
-        <mat-card class="example-card">
+        <mat-card class="example-card" [routerLink]="'/announcement/' + announcement.id">
           <mat-card-title class="title-card">{{announcement.title}}</mat-card-title>
           <img mat-card-image src="../../assets/files/template.jpg" alt="Photo template">
           <mat-card-content>
