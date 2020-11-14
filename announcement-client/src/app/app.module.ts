@@ -14,6 +14,7 @@ import {AuthInterceptor} from './utils/auth.interceptor';
 import {TopbarComponent} from './topbar/topbar.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AnnouncementComponent} from './announcement/announcement.component';
+import {AnnouncementDetailsComponent} from './announcement/announcement-details/announcement-details.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AnnouncementComponent} from './announcement/announcement.component';
     HomeComponent,
     TopbarComponent,
     ProfileComponent,
-    AnnouncementComponent
+    AnnouncementComponent,
+    AnnouncementDetailsComponent
   ],
   imports: [
     BrowserModule,
