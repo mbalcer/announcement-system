@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AnnouncementService} from '../services/announcement.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-announcement',
@@ -8,21 +9,32 @@ import {AnnouncementService} from '../services/announcement.service';
   styleUrls: ['./announcement.component.scss']
 })
 export class AnnouncementComponent implements OnInit {
-  announcements: any[] = [];
+  announcementPage: any;
+  filterModel: any;
 
   constructor(private route: ActivatedRoute, private announcementService: AnnouncementService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.getAnnouncements(params);
+      this.filterModel = params;
+      this.getAnnouncements();
     });
   }
 
-  getAnnouncements(filter: any) {
-    this.announcementService.getAllAnnouncementsByFilter(filter).subscribe(result => {
-      this.announcements = result;
-      console.log(result);
+  getAnnouncements() {
+    this.announcementService.getAllAnnouncementsByFilter(this.filterModel).subscribe(result => {
+      this.announcementPage = result;
     }, error => console.log(error));
+  }
+
+  pagination(pageEvent: PageEvent) {
+    this.filterModel = {
+      category: this.filterModel.category,
+      city: this.filterModel.city,
+      page: pageEvent.pageIndex,
+      size: pageEvent.pageSize
+    };
+    this.getAnnouncements();
   }
 
 }

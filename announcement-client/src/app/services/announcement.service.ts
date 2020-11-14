@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -9,27 +9,28 @@ import {Observable} from 'rxjs';
 export class AnnouncementService {
   private ANNOUNCEMENT_URL = environment.apiUrl + '/announcement';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
   constructor(private http: HttpClient) { }
 
-  getAllAnnouncements(): Observable<any[]> {
-    return this.http.get<any[]>(this.ANNOUNCEMENT_URL, this.httpOptions);
+  getAllAnnouncements(param?): Observable<any> {
+    return this.http.get<any>(this.ANNOUNCEMENT_URL, {params: param});
   }
 
-  getAllAnnouncementsByFilter(filter: any): Observable<any[]> {
+  getAllAnnouncementsByFilter(filter: any): Observable<any> {
+    let param = {};
+    if (filter.page && filter.size) {
+      param = {
+        page: filter.page,
+        size: filter.size
+      };
+    }
     if (filter.category.length !== 0 && filter.city.length !== 0) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category + '/city/' + filter.city, this.httpOptions);
+      return this.http.get<any>(this.ANNOUNCEMENT_URL + '/category/' + filter.category + '/city/' + filter.city, {params: param});
     } else if (filter.category.length !== 0) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category, this.httpOptions);
+      return this.http.get<any>(this.ANNOUNCEMENT_URL + '/category/' + filter.category, {params: param});
     } else if (filter.city.length !== 0) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/city/' + filter.city, this.httpOptions);
+      return this.http.get<any>(this.ANNOUNCEMENT_URL + '/city/' + filter.city, {params: param});
     } else {
-      return this.getAllAnnouncements();
+      return this.getAllAnnouncements(param);
     }
   }
 

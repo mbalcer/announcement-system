@@ -1,1 +1,22 @@
-<p>announcement works!</p>
+<div class="announcement-page">
+  <div class="announcement-list">
+    <h2>Wszystkie ogłoszenia</h2>
+    <p *ngIf="filterModel.category">z kategorii: {{filterModel.category}}</p>
+    <div class="announcement-item" *ngFor="let announcement of announcementPage.content" [routerLink]="'/announcement/' + announcement.id">
+      <div class="picture">
+        <img src="../../../assets/files/template.jpg" alt="Photo template">
+      </div>
+      <div class="main-info">
+        <div class="title">{{announcement.title}}</div>
+        <span class="spacer"></span>
+        <div class="city" *ngIf="announcement.place.city">{{announcement.place.city}}</div>
+      </div>
+      <div class="price" *ngIf="announcement.price">{{announcement.price}} zł</div>
+    </div>
+    <mat-paginator [length]="announcementPage.totalElements"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20, 50]"
+                   (page)="pagination($event)">
+    </mat-paginator>
+  </div>
+</div>
