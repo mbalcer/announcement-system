@@ -3,6 +3,7 @@ import {CategoryService} from '../services/category.service';
 import {PlaceService} from '../services/place.service';
 import {MatOptionSelectionChange} from '@angular/material/core';
 import {AnnouncementService} from '../services/announcement.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private categoryService: CategoryService,
               private placeService: PlaceService,
-              private announcementService: AnnouncementService) { }
+              private announcementService: AnnouncementService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.categoryService.getAllCategories().subscribe(result => this.categories = result, err => console.log(err));
@@ -31,7 +33,11 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchModel);
+    this.router.navigate(['/announcement'], { queryParams:
+        {
+          category: this.searchModel.category,
+          city: this.searchModel.place
+        }});
   }
 
   setVoivodeship(option: MatOptionSelectionChange) {

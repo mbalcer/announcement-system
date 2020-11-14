@@ -5,8 +5,8 @@
       <img src="../../../assets/files/template.jpg" alt="Photo template">
     </div>
     <div class="description">
-      <h2>Cena: {{activeAnnouncement.price}} zł</h2>
-      <h2>Opis</h2>
+      <h2 *ngIf="activeAnnouncement.price">Cena: {{activeAnnouncement.price}} zł</h2>
+      <h2 *ngIf="activeAnnouncement.description">Opis</h2>
       <p>
         {{activeAnnouncement.description}}
       </p>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -9,19 +9,25 @@ import {Observable} from 'rxjs';
 export class AnnouncementService {
   private ANNOUNCEMENT_URL = environment.apiUrl + '/announcement';
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
   constructor(private http: HttpClient) { }
 
   getAllAnnouncements(): Observable<any[]> {
-    return this.http.get<any[]>(this.ANNOUNCEMENT_URL);
+    return this.http.get<any[]>(this.ANNOUNCEMENT_URL, this.httpOptions);
   }
 
   getAllAnnouncementsByFilter(filter: any): Observable<any[]> {
-    if (filter.category && filter.place) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category + '/place/' + filter.place);
-    } else if (filter.category) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category);
-    } else if (filter.place) {
-      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/place/' + filter.place);
+    if (filter.category.length !== 0 && filter.city.length !== 0) {
+      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category + '/city/' + filter.city, this.httpOptions);
+    } else if (filter.category.length !== 0) {
+      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/category/' + filter.category, this.httpOptions);
+    } else if (filter.city.length !== 0) {
+      return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/city/' + filter.city, this.httpOptions);
     } else {
       return this.getAllAnnouncements();
     }
