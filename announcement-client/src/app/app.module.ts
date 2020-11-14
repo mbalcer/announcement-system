@@ -13,6 +13,7 @@ import {HomeComponent} from './home/home.component';
 import {AuthInterceptor} from './utils/auth.interceptor';
 import {TopbarComponent} from './topbar/topbar.component';
 import {ProfileComponent} from './profile/profile.component';
+import {AnnouncementComponent} from './announcement/announcement.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ProfileComponent} from './profile/profile.component';
     RegisterComponent,
     HomeComponent,
     TopbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    AnnouncementComponent
   ],
   imports: [
     BrowserModule,
