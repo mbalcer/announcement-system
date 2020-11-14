@@ -5,7 +5,8 @@
 }
 
 .search-announcement {
-  width: 100%;
+  width: 60%;
+  margin: 0 auto;
 
   > mat-form-field {
     width: 37%;
@@ -20,4 +21,42 @@
 
 .clear-voivodeship {
   background-color: #efefef;
+}
+
+.announcement-random {
+  width: 100%;
+  background: #efefef;
+
+  h2 {
+    text-align: center;
+    font-size: 32px;
+    margin: 1em 0;
+  }
+}
+
+.announcements {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.title-card {
+  height: 60px;
+  font-size: 18px;
+}
+
+.card-place {
+  font-size: 14px;
+}
+
+.card-time {
+  font-size: 12px;
+  color: #ababab;
+}
+
+
+.example-card {
+  margin: 0.5em;
+
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../services/category.service';
 import {PlaceService} from '../services/place.service';
 import {MatOptionSelectionChange} from '@angular/material/core';
+import {AnnouncementService} from '../services/announcement.service';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +13,21 @@ export class HomeComponent implements OnInit {
   categories: any[] = [];
   places: any[] = [];
   voivodeships: any[] = [];
+  announcements: any[] = [];
   searchModel: any = {
     category: '',
     voivodeship: '',
     place: ''
   };
 
-  constructor(private categoryService: CategoryService, private placeService: PlaceService) { }
+  constructor(private categoryService: CategoryService,
+              private placeService: PlaceService,
+              private announcementService: AnnouncementService) { }
 
   ngOnInit(): void {
     this.categoryService.getAllCategories().subscribe(result => this.categories = result, err => console.log(err));
     this.placeService.getAllVoivodeship().subscribe(result => this.voivodeships = result, err => console.log(err));
+    this.getAnnouncements();
   }
 
   search() {
@@ -38,10 +43,12 @@ export class HomeComponent implements OnInit {
   }
 
   clearVoivodeship() {
-    this.searchModel = {
-      voivodeship: '',
-      place: ''
-    };
+    this.searchModel.voivodeship = '';
+    this.searchModel.place = '';
     this.places = [];
+  }
+
+  getAnnouncements() {
+    this.announcementService.getLatestAnnouncements(9).subscribe(result => this.announcements = result);
   }
 }

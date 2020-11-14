@@ -27,6 +27,10 @@ export class AnnouncementService {
     }
   }
 
+  getLatestAnnouncements(limit: number): Observable<any[]> {
+    return this.http.get<any[]>(this.ANNOUNCEMENT_URL + '/latest/' + limit);
+  }
+
   getAnnouncement(id: number): Observable<any> {
     return this.http.get<any>(this.ANNOUNCEMENT_URL + '/' + id);
   }
