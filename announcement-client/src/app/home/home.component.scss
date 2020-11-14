@@ -1,0 +1,23 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-announcement {
+  width: 100%;
+
+  > mat-form-field {
+    width: 37%;
+    margin: 3em 1.5%;
+  }
+
+  > button {
+    width: 17%;
+    margin: 3em 1.5%;
+  }
+}
+
+.clear-voivodeship {
+  background-color: #efefef;
+}

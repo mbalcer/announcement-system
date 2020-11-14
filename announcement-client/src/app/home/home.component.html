@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="home-page">
+  <div class="search-announcement">
+    <mat-form-field appearance="standard">
+      <mat-label>Kategoria</mat-label>
+      <mat-select [(ngModel)]="searchModel.category">
+        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="standard" *ngIf="searchModel.voivodeship.length == 0">
+      <mat-label>Województwo</mat-label>
+      <mat-select [(ngModel)]="searchModel.voivodeship">
+        <mat-option *ngFor="let voivodeship of voivodeships" [value]="voivodeship.name" (onSelectionChange)="setVoivodeship($event)">{{voivodeship.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="standard" *ngIf="searchModel.voivodeship.length != 0">
+      <mat-label>Miasto</mat-label>
+      <mat-select [(ngModel)]="searchModel.place">
+        <mat-option (click)="clearVoivodeship()" class="clear-voivodeship">Wybierz inne województwo</mat-option>
+        <mat-divider></mat-divider>
+        <mat-option *ngFor="let place of places" [value]="place.city">{{place.city}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="search()">Szukaj</button>
+  </div>
+</div>
