@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.mbalcer.announcementsystem.model.Announcement;
+import pl.mbalcer.announcementsystem.model.User;
 import pl.mbalcer.announcementsystem.payload.response.MessageResponse;
 import pl.mbalcer.announcementsystem.repository.AnnouncementRepository;
+import pl.mbalcer.announcementsystem.repository.UserRepository;
 import pl.mbalcer.announcementsystem.service.AnnouncementService;
 
 import java.net.URI;
@@ -22,9 +24,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AnnouncementServiceImpl implements AnnouncementService {
     private AnnouncementRepository announcementRepository;
+    private UserRepository userRepository;
 
-    public AnnouncementServiceImpl(AnnouncementRepository announcementRepository) {
+    public AnnouncementServiceImpl(AnnouncementRepository announcementRepository, UserRepository userRepository) {
         this.announcementRepository = announcementRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -84,6 +88,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     @Override
     public ResponseEntity<?> create(Announcement announcement) {
         log.info("Request to create announcement: " + announcement);
+        Optional<User> optionalUser = this.userRepository.findByUsername(announcement.getUser().getUsername());
+        if (optionalUser.isEmpty())
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid user"));
+        announcement.setUser(optionalUser.get());
         if(announcement.getId() != null)
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid id!"));
         Announcement saveAnnouncement = announcementRepository.save(announcement);

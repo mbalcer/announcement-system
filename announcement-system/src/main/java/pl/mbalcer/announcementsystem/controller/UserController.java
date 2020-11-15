@@ -35,9 +35,9 @@ public class UserController {
         return userService.findOneByUsername(username);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
-        return userService.update(userDTO, id);
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PutMapping("/{username}")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, @PathVariable String username) {
+        return userService.update(userDTO, username);
     }
 }

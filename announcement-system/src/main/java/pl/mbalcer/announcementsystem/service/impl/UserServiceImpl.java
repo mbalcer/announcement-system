@@ -52,10 +52,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> update(UserDTO userRequest, Long id) {
+    public ResponseEntity<?> update(UserDTO userRequest, String username) {
         log.info("Request to update user: " + userRequest);
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isEmpty())
             return ResponseEntity.notFound().build();
         User user = userOptional.get();

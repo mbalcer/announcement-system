@@ -14,5 +14,5 @@ public interface UserService {
 
     ResponseEntity<?> findOneByUsername(String username);
 
-    ResponseEntity<?> update(UserDTO user, Long id);
+    ResponseEntity<?> update(UserDTO user, String username);
 }
