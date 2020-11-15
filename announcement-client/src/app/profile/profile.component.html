@@ -1,7 +1,7 @@
 <div class="profile-page">
   <div class="profile-tabs">
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Moje ogłoszenia">
+    <mat-tab-group mat-align-tabs="center" #tabs>
+      <mat-tab label="Ogłoszenia">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 announcements-table" *ngIf="myAnnouncements.length > 0">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -35,8 +35,65 @@
         </table>
         <h2 *ngIf="myAnnouncements.length == 0" class="empty-announcements-info">Nie masz jeszcze dodanych ogłoszeń.</h2>
       </mat-tab>
-      <mat-tab label="Dodaj nowe ogłoszenie">Content 2</mat-tab>
-      <mat-tab label="Mój profil">Content 3</mat-tab>
+      <mat-tab label="Nowe ogłoszenie">
+        <div class="form-add-announcement">
+          <form (ngSubmit)="f.form.valid && save(f)" #f="ngForm" novalidate>
+            <mat-form-field>
+              <mat-label>Tytuł</mat-label>
+              <input matInput
+                     [(ngModel)]="newAnnouncement.title"
+                     name="title"
+                     required
+                     minlength="6"
+                     maxlength="50"
+                     #title="ngModel">
+              <mat-hint align="end">{{title.value.length}} / 50</mat-hint>
+            </mat-form-field>
+            <div class="message" *ngIf="f.submitted && title.invalid">
+              <span class="error" *ngIf="title.errors.required">Title is required!</span>
+              <span class="error" *ngIf="title.errors.minlength">Title must be at least 6 characters</span>
+            </div>
+
+            <mat-form-field appearance="standard">
+              <mat-label>Kategoria</mat-label>
+              <mat-select [(ngModel)]="newAnnouncement.category" name="category">
+                <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" *ngIf="places.length == 0">
+              <mat-label>Województwo</mat-label>
+              <mat-select [(ngModel)]="newAnnouncement.place.voivodeship" name="voivodeship">
+                <mat-option *ngFor="let voivodeship of voivodeships" [value]="voivodeship" (onSelectionChange)="setVoivodeship($event)">{{voivodeship.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" *ngIf="places.length != 0">
+              <mat-label>Miasto</mat-label>
+              <mat-select [(ngModel)]="newAnnouncement.place" name="place">
+                <mat-option (click)="clearVoivodeship()" class="clear-voivodeship">Wybierz inne województwo</mat-option>
+                <mat-divider></mat-divider>
+                <mat-option *ngFor="let place of places" [value]="place">{{place.city}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Opis</mat-label>
+              <textarea matInput #description maxlength="4000" [(ngModel)]="newAnnouncement.description"
+                        placeholder="Podaj więcej informacji na temat ogłoszenia" name="description"></textarea>
+              <mat-hint align="end">{{description.value.length}} / 4000</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Cena</mat-label>
+              <input type="number" min="0.00" step="0.01" matInput [(ngModel)]="newAnnouncement.price" name="price">
+            </mat-form-field>
+            <button mat-raised-button color="primary" *ngIf="!editAnnouncement">Dodaj ogłoszenie</button>
+            <button mat-raised-button color="primary" *ngIf="editAnnouncement">Edytuj ogłoszenie</button>
+          </form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Profil">Content 3</mat-tab>
     </mat-tab-group>
   </div>
 </div>
