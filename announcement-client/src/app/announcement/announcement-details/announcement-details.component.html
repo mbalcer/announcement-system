@@ -20,8 +20,8 @@
     <div class="user-info">
       <h2>Użytkownik</h2>
       <div class="name">{{activeAnnouncement.user.firstName}} {{activeAnnouncement.user.lastName}}</div>
-      <mat-divider></mat-divider>
-      <div class="phone-number">Numer telefonu: {{activeAnnouncement.user.phoneNumber}}</div>
+      <mat-divider *ngIf="activeAnnouncement.user.phoneNumber"></mat-divider>
+      <div class="phone-number" *ngIf="activeAnnouncement.user.phoneNumber">Numer telefonu: {{activeAnnouncement.user.phoneNumber}}</div>
       <mat-divider></mat-divider>
       <div class="email">Email: {{activeAnnouncement.user.email}}</div>
     </div>

@@ -18,12 +18,12 @@
   width: 15%;
 }
 
-.empty-announcements-info {
+.announcements-info {
   text-align: center;
   margin-top: 1em;
 }
 
-.form-add-announcement {
+.form-add-announcement, .form-profile {
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -32,6 +32,11 @@
   mat-form-field, button {
     width: calc(100% - 2em);
     margin: 1em;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 1em;
   }
 }
 

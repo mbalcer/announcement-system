@@ -6,6 +6,8 @@ import {MatOptionSelectionChange} from '@angular/material/core';
 import {PlaceService} from '../services/place.service';
 import {CategoryService} from '../services/category.service';
 import {MatTabGroup} from '@angular/material/tabs';
+import {UserService} from '../services/user.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -24,19 +26,36 @@ export class ProfileComponent implements OnInit {
   newAnnouncement: any = null;
   editAnnouncement = false;
 
+  user: any = {
+    username: '',
+    email: '',
+    role: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    address: ''
+  };
+
   @ViewChild('tabs') tabGroup: MatTabGroup;
 
   constructor(private tokenStorageService: TokenStorageService,
               private announcementService: AnnouncementService,
               private placeService: PlaceService,
-              private categoryService: CategoryService) { }
+              private categoryService: CategoryService,
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.clearNewAnnouncement();
+    this.getUser();
     this.categoryService.getAllCategories().subscribe(result => this.categories = result, err => console.log(err));
     this.placeService.getAllVoivodeship().subscribe(result => this.voivodeships = result, err => console.log(err));
     this.getAnnouncements();
   }
+
+  // tslint:disable-next-line:only-arrow-functions
+  public objectComparisonFunction = function( option, value ): boolean {
+    return option.id === value.id;
+  };
 
   refreshTable() {
     this.dataSource = new MatTableDataSource<any[]>(this.myAnnouncements);
@@ -59,21 +78,27 @@ export class ProfileComponent implements OnInit {
         },
         city: ''
       },
-      user: {
-        username: this.getUser().username
-      }
+      user: this.user
     };
   }
 
   getUser() {
-    return this.tokenStorageService.getUser();
+    this.userService.getUserByUsername(this.tokenStorageService.getUser().username).subscribe(result => {
+      this.user = result;
+    }, error => console.log(error));
   }
 
   getAnnouncements() {
-    this.announcementService.getAnnouncementsByUser(this.getUser().username).subscribe(result => {
+    this.announcementService.getAnnouncementsByUser(this.tokenStorageService.getUser().username).subscribe(result => {
       this.myAnnouncements = result;
       this.refreshTable();
     }, error => console.log(error));
+  }
+
+  getPlacesByVoivodeship(voivodeship: string) {
+    this.placeService.getAllPlacesByVoivodeship(voivodeship).subscribe(result => {
+      this.places = result;
+    });
   }
 
   save(form) {
@@ -94,6 +119,9 @@ export class ProfileComponent implements OnInit {
 
   edit(data) {
     this.newAnnouncement = data;
+    if (this.newAnnouncement.place.city.length !== 0) {
+      this.getPlacesByVoivodeship(this.newAnnouncement.place.voivodeship.name);
+    }
     this.editAnnouncement = true;
     this.tabGroup.selectedIndex = 1;
   }
@@ -107,9 +135,7 @@ export class ProfileComponent implements OnInit {
 
   setVoivodeship(option: MatOptionSelectionChange) {
     if (option.isUserInput) {
-      this.placeService.getAllPlacesByVoivodeship(option.source.value.name).subscribe(result => {
-        this.places = result;
-      });
+      this.getPlacesByVoivodeship(option.source.value.name);
     }
   }
 
@@ -123,5 +149,11 @@ export class ProfileComponent implements OnInit {
       city: ''
     };
     this.places = [];
+  }
+
+  updateProfile(form: NgForm) {
+    this.userService.updateUser(this.user).subscribe(result => {
+      this.user = result;
+    }, error => console.log(error));
   }
 }

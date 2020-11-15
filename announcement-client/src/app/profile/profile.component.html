@@ -2,6 +2,8 @@
   <div class="profile-tabs">
     <mat-tab-group mat-align-tabs="center" #tabs>
       <mat-tab label="Ogłoszenia">
+        <h2 *ngIf="myAnnouncements.length == 0" class="announcements-info">Nie masz jeszcze dodanych ogłoszeń.</h2>
+        <h2 *ngIf="myAnnouncements.length != 0" class="announcements-info">Moje ogłoszenia</h2>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 announcements-table" *ngIf="myAnnouncements.length > 0">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -33,7 +35,6 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <h2 *ngIf="myAnnouncements.length == 0" class="empty-announcements-info">Nie masz jeszcze dodanych ogłoszeń.</h2>
       </mat-tab>
       <mat-tab label="Nowe ogłoszenie">
         <div class="form-add-announcement">
@@ -56,21 +57,21 @@
 
             <mat-form-field appearance="standard">
               <mat-label>Kategoria</mat-label>
-              <mat-select [(ngModel)]="newAnnouncement.category" name="category">
+              <mat-select [(ngModel)]="newAnnouncement.category" name="category" [compareWith]="objectComparisonFunction">
                 <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="standard" *ngIf="places.length == 0">
               <mat-label>Województwo</mat-label>
-              <mat-select [(ngModel)]="newAnnouncement.place.voivodeship" name="voivodeship">
+              <mat-select [(ngModel)]="newAnnouncement.place.voivodeship" name="voivodeship" [compareWith]="objectComparisonFunction">
                 <mat-option *ngFor="let voivodeship of voivodeships" [value]="voivodeship" (onSelectionChange)="setVoivodeship($event)">{{voivodeship.name}}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="standard" *ngIf="places.length != 0">
               <mat-label>Miasto</mat-label>
-              <mat-select [(ngModel)]="newAnnouncement.place" name="place">
+              <mat-select [(ngModel)]="newAnnouncement.place" name="place" [compareWith]="objectComparisonFunction">
                 <mat-option (click)="clearVoivodeship()" class="clear-voivodeship">Wybierz inne województwo</mat-option>
                 <mat-divider></mat-divider>
                 <mat-option *ngFor="let place of places" [value]="place">{{place.city}}</mat-option>
@@ -93,7 +94,48 @@
           </form>
         </div>
       </mat-tab>
-      <mat-tab label="Profil">Content 3</mat-tab>
+      <mat-tab label="Profil">
+        <div class="form-profile">
+          <h2>Edytuj swój profil</h2>
+          <form (ngSubmit)="fProfile.form.valid && updateProfile(fProfile)" #fProfile="ngForm" novalidate>
+            <mat-form-field>
+              <mat-label>Imię</mat-label>
+              <input matInput [(ngModel)]="user.firstName" name="firstName" required maxlength="30" #firstName="ngModel">
+              <mat-hint align="end">{{firstName.value.length}} / 30</mat-hint>
+            </mat-form-field>
+            <div class="message" *ngIf="fProfile.submitted && firstName.invalid">
+              <span class="error" *ngIf="firstName.errors.required">First name is required!</span>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Nazwisko</mat-label>
+              <input matInput [(ngModel)]="user.lastName" name="lastName" required maxlength="30" #lastName="ngModel">
+              <mat-hint align="end">{{lastName.value.length}} / 30</mat-hint>
+            </mat-form-field>
+            <div class="message" *ngIf="fProfile.submitted && lastName.invalid">
+              <span class="error" *ngIf="lastName.errors.required">Last name is required!</span>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput [(ngModel)]="user.email" name="email" required email #email="ngModel">
+            </mat-form-field>
+            <div class="message" *ngIf="fProfile.submitted && email.invalid">
+              <span class="error" *ngIf="email.errors.required">Email is required!</span>
+              <span class="error" *ngIf="email.errors.email">Email must be a valid email address!</span>
+            </div>
+
+            <mat-form-field>
+              <mat-label>Numer telefonu</mat-label>
+              <input placeholder="+48........." matInput [(ngModel)]="user.phoneNumber"
+                     name="phoneNumber" #phoneNumber="ngModel">
+              <mat-hint align="end">{{phoneNumber.value.length}} / 12</mat-hint>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary">Edytuj profil</button>
+          </form>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>
