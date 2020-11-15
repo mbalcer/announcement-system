@@ -1,5 +1,6 @@
 package pl.mbalcer.announcementsystem.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.mbalcer.announcementsystem.model.Announcement;
@@ -18,8 +19,9 @@ public class AnnouncementController {
     }
 
     @GetMapping
-    public List<Announcement> getAllAnnouncements() {
-        return announcementService.findAll();
+    public Page<Announcement> getAllAnnouncements(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size) {
+        return announcementService.findAll(page, size);
     }
 
     @GetMapping("/latest/{number}")
@@ -28,18 +30,25 @@ public class AnnouncementController {
     }
 
     @GetMapping("/category/{category}")
-    public List<Announcement> getAllAnnouncementsByCategory(@PathVariable String category) {
-        return announcementService.findAllByCategory(category);
+    public Page<Announcement> getAllAnnouncementsByCategory(@PathVariable String category,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) {
+        return announcementService.findAllByCategory(category, page, size);
     }
 
     @GetMapping("/city/{city}")
-    public List<Announcement> getAllAnnouncementsByCity(@PathVariable String city) {
-        return announcementService.findAllByCity(city);
+    public Page<Announcement> getAllAnnouncementsByCity(@PathVariable String city,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        return announcementService.findAllByCity(city, page, size);
     }
 
     @GetMapping("/category/{category}/city/{city}")
-    public List<Announcement> getAllAnnouncementsByCategoryAndCity(@PathVariable String category, @PathVariable String city) {
-        return announcementService.findAllByCategoryAndCity(category, city);
+    public Page<Announcement> getAllAnnouncementsByCategoryAndCity(@PathVariable String category,
+                                                                   @PathVariable String city,
+                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "10") int size) {
+        return announcementService.findAllByCategoryAndCity(category, city, page, size);
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,9 @@
 package pl.mbalcer.announcementsystem.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,9 +28,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<Announcement> findAll() {
+    public Page<Announcement> findAll(int page, int size) {
         log.info("Request to get all announcements");
-        return announcementRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
+        return announcementRepository.findAll(pageable);
     }
 
     @Override
@@ -41,21 +45,24 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
-    public List<Announcement> findAllByCategory(String category) {
+    public Page<Announcement> findAllByCategory(String category, int page, int size) {
         log.info("Request to get all announcements by category: " + category);
-        return announcementRepository.findAllByCategoryName(category);
+        Pageable pageable = PageRequest.of(page, size);
+        return announcementRepository.findAllByCategoryName(category, pageable);
     }
 
     @Override
-    public List<Announcement> findAllByCity(String city) {
+    public Page<Announcement> findAllByCity(String city, int page, int size) {
         log.info("Request to get all announcements by city: " + city);
-        return announcementRepository.findAllByPlaceCity(city);
+        Pageable pageable = PageRequest.of(page, size);
+        return announcementRepository.findAllByPlaceCity(city, pageable);
     }
 
     @Override
-    public List<Announcement> findAllByCategoryAndCity(String category, String city) {
+    public Page<Announcement> findAllByCategoryAndCity(String category, String city, int page, int size) {
         log.info("Request to get all announcements by category: " + category + ", and city: " + city);
-        return announcementRepository.findAllByCategoryNameAndPlaceCity(category, city);
+        Pageable pageable = PageRequest.of(page, size);
+        return announcementRepository.findAllByCategoryNameAndPlaceCity(category, city, pageable);
     }
 
     @Override

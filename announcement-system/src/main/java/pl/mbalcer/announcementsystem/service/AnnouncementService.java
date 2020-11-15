@@ -1,5 +1,6 @@
 package pl.mbalcer.announcementsystem.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.mbalcer.announcementsystem.model.Announcement;
@@ -8,15 +9,15 @@ import java.util.List;
 
 @Service
 public interface AnnouncementService {
-    List<Announcement> findAll();
+    Page<Announcement> findAll(int page, int size);
 
     List<Announcement> findLatest(Long number);
 
-    List<Announcement> findAllByCategory(String category);
+    Page<Announcement> findAllByCategory(String category, int page, int size);
 
-    List<Announcement> findAllByCity(String city);
+    Page<Announcement> findAllByCity(String city, int page, int size);
 
-    List<Announcement> findAllByCategoryAndCity(String category, String city);
+    Page<Announcement> findAllByCategoryAndCity(String category, String city, int page, int size);
 
     ResponseEntity<?> findOne(Long id);
 
