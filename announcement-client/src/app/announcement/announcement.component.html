@@ -1,5 +1,5 @@
 <div class="announcement-page">
-  <div class="announcement-list">
+  <div class="announcement-list" *ngIf="announcementPage.totalElements > 0">
     <h2>Wszystkie ogłoszenia</h2>
     <p *ngIf="filterModel.category">z kategorii: {{filterModel.category}}</p>
     <div class="announcement-item" *ngFor="let announcement of announcementPage.content" [routerLink]="'/announcement/' + announcement.id">
@@ -16,7 +16,11 @@
     <mat-paginator [length]="announcementPage.totalElements"
                    [pageSize]="10"
                    [pageSizeOptions]="[5, 10, 20, 50]"
-                   (page)="pagination($event)">
+                   (page)="pagination($event)"
+                   *ngIf="announcementPage.totalElements >= 5">
     </mat-paginator>
+  </div>
+  <div class="announcement-list" *ngIf="announcementPage.totalElements == 0">
+    <h2 style="text-align: center">Brak ogłoszeń dla podanych parametrów</h2>
   </div>
 </div>

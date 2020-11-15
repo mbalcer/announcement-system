@@ -17,7 +17,7 @@ export class AnnouncementService {
 
   getAllAnnouncementsByFilter(filter: any): Observable<any> {
     let param = {};
-    if (filter.page && filter.size) {
+    if (filter.page !== undefined && filter.size !== undefined) {
       param = {
         page: filter.page,
         size: filter.size

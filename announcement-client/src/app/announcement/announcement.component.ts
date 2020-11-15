@@ -10,15 +10,29 @@ import {PageEvent} from '@angular/material/paginator';
 })
 export class AnnouncementComponent implements OnInit {
   announcementPage: any;
-  filterModel: any;
+  filterModel = {
+    category: '',
+    city: '',
+    page: 0,
+    size: 10
+  };
 
   constructor(private route: ActivatedRoute, private announcementService: AnnouncementService) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.filterModel = params;
+    if (this.route.snapshot.queryParams.category || this.route.snapshot.queryParams.city) {
+      this.route.queryParams.subscribe(params => {
+        this.filterModel = {
+          category: params.category,
+          city: params.city,
+          page: this.filterModel.page,
+          size: this.filterModel.size
+        };
+        this.getAnnouncements();
+      });
+    } else {
       this.getAnnouncements();
-    });
+    }
   }
 
   getAnnouncements() {
