@@ -66,6 +66,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     }
 
     @Override
+    public List<Announcement> findAllByUser(String username) {
+        log.info("Request to get all announcements by user: " + username);
+        return this.announcementRepository.findAllByUserUsername(username);
+    }
+
+    @Override
     public ResponseEntity<?> findOne(Long id) {
         log.info("Request to get announcement by id: " + id);
         Optional<Announcement> announcementOptional = announcementRepository.findById(id);

@@ -19,6 +19,8 @@ public interface AnnouncementService {
 
     Page<Announcement> findAllByCategoryAndCity(String category, String city, int page, int size);
 
+    List<Announcement> findAllByUser(String username);
+
     ResponseEntity<?> findOne(Long id);
 
     ResponseEntity<?> create(Announcement announcement);

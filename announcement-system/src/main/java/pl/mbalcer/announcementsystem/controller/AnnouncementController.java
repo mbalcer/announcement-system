@@ -51,6 +51,11 @@ public class AnnouncementController {
         return announcementService.findAllByCategoryAndCity(category, city, page, size);
     }
 
+    @GetMapping("/user/{username}")
+    public List<Announcement> getAllAnnouncementsByUser(@PathVariable String username) {
+        return announcementService.findAllByUser(username);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getAnnouncementById(@PathVariable Long id) {
         return announcementService.findOne(id);

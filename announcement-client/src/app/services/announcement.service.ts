@@ -42,6 +42,10 @@ export class AnnouncementService {
     return this.http.get<any>(this.ANNOUNCEMENT_URL + '/' + id);
   }
 
+  getAnnouncementsByUser(username: string): Observable<any> {
+    return this.http.get<any>(this.ANNOUNCEMENT_URL + '/user/' + username);
+  }
+
   postAnnouncement(announcement: any): Observable<any> {
     return this.http.post<any>(this.ANNOUNCEMENT_URL, announcement);
   }
