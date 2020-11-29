@@ -1,8 +1,9 @@
-package pl.mbalcer.announcementsystem.model;
+package pl.mbalcer.announcementsystem.mail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.mbalcer.announcementsystem.model.Announcement;
 
 @Data
 @NoArgsConstructor
