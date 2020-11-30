@@ -76,6 +76,11 @@
         </div>
 
         <button mat-raised-button color="primary">Wyślij wiadomość</button>
+
+        <div class="message">
+          <span class="error" *ngIf="sendEmailResponse == false">Mamy mały problem i wiadomość nie została wysłana. Spróbuj ponownie później lub wybierz inny kanał komunikacji ze sprzedającym</span>
+          <span class="success" *ngIf="sendEmailResponse">Wiadomość została wysłana</span>
+        </div>
       </form>
     </div>
   </div>

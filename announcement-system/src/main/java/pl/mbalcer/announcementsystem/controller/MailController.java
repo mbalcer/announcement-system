@@ -6,7 +6,7 @@ import pl.mbalcer.announcementsystem.mail.ContactSender;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/announcement")
+@RequestMapping("/api/mail")
 public class MailController {
     private final ContactSender contactSender;
 

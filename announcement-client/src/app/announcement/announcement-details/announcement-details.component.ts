@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AnnouncementService} from '../../services/announcement.service';
 import {NgForm} from '@angular/forms';
+import {MailService} from '../../services/mail.service';
 
 @Component({
   selector: 'app-announcement-details',
@@ -16,8 +17,9 @@ export class AnnouncementDetailsComponent implements OnInit {
     messageFromUser: '',
     announcement: null
   };
+  sendEmailResponse: boolean = null;
 
-  constructor(private route: ActivatedRoute, private announcementService: AnnouncementService) {
+  constructor(private route: ActivatedRoute, private announcementService: AnnouncementService, private mailService: MailService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +34,9 @@ export class AnnouncementDetailsComponent implements OnInit {
   }
 
   sendEmail(f: NgForm) {
-    return false;
+    this.mailService.sendEmail(this.contactMail).subscribe(result => {
+      f.resetForm();
+      this.sendEmailResponse = result;
+    }, error => this.sendEmailResponse = false);
   }
 }

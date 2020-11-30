@@ -1,5 +1,6 @@
 package pl.mbalcer.announcementsystem.mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -9,6 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Component
+@Slf4j
 public class ContactMailSender implements ContactSender {
     private JavaMailSender mailSender;
 
@@ -36,9 +38,10 @@ public class ContactMailSender implements ContactSender {
             mimeMessageHelper.setSubject("Użytkownik " + contactMail.getName() + " chce się z tobą skontaktować");
             mimeMessageHelper.setText(templateMessage, true);
             this.mailSender.send(message);
+            log.info("Email announcement.page.1@gmail.com -> " + contactMail.getAnnouncement().getUser().getEmail() + " with replyTo: " + contactMail.getFrom() + " was sent");
             return true;
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error("Error during sending email: {}", e.getMessage());
         }
 
         return false;
