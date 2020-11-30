@@ -34,4 +34,8 @@ public class Announcement {
 
     @ManyToOne
     private User user;
+
+    public Announcement(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }
