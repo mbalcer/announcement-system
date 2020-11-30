@@ -70,4 +70,14 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
         return ResponseEntity.ok(UserDTO.build(user));
     }
+
+    @Override
+    public ResponseEntity<?> delete(String username) {
+        log.info("Request to delete User: {}", username);
+        if (!userRepository.existsByUsername(username))
+            return ResponseEntity.notFound().build();
+
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.noContent().build();
+    }
 }

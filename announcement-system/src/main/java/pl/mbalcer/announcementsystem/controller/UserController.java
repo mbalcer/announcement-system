@@ -40,4 +40,10 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO, @PathVariable String username) {
         return userService.update(userDTO, username);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username) {
+        return userService.delete(username);
+    }
 }
