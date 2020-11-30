@@ -46,4 +46,10 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String username) {
         return userService.delete(username);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/role")
+    public ResponseEntity<?> changeRoleInUser(@RequestBody UserDTO userDTO) {
+        return userService.changeRole(userDTO);
+    }
 }

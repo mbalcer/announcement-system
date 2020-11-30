@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import pl.mbalcer.announcementsystem.model.Role;
 import pl.mbalcer.announcementsystem.model.User;
 import pl.mbalcer.announcementsystem.payload.UserDTO;
 import pl.mbalcer.announcementsystem.payload.response.MessageResponse;
+import pl.mbalcer.announcementsystem.repository.AnnouncementRepository;
+import pl.mbalcer.announcementsystem.repository.RoleRepository;
 import pl.mbalcer.announcementsystem.repository.UserRepository;
 import pl.mbalcer.announcementsystem.security.service.UserDetailsImpl;
 import pl.mbalcer.announcementsystem.service.UserService;
@@ -20,9 +23,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final AnnouncementRepository announcementRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, AnnouncementRepository announcementRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.announcementRepository = announcementRepository;
     }
 
     @Override
@@ -77,7 +84,26 @@ public class UserServiceImpl implements UserService {
         if (!userRepository.existsByUsername(username))
             return ResponseEntity.notFound().build();
 
+        announcementRepository.deleteByUserUsername(username);
         userRepository.deleteByUsername(username);
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<?> changeRole(UserDTO userDTO) {
+        log.info("Request to change role in user: {}", userDTO);
+        Optional<Role> roleOptional = roleRepository.findByName(userDTO.getRole().getName());
+        if (roleOptional.isEmpty())
+            return ResponseEntity.badRequest().body("Error: Role is invalid");
+
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
+        if (userOptional.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        User user = userOptional.get();
+        user.setRole(roleOptional.get());
+
+        user = userRepository.save(user);
+        return ResponseEntity.ok(UserDTO.build(user));
     }
 }

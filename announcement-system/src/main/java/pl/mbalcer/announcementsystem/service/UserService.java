@@ -17,4 +17,6 @@ public interface UserService {
     ResponseEntity<?> update(UserDTO user, String username);
 
     ResponseEntity<?> delete(String username);
+
+    ResponseEntity<?> changeRole(UserDTO userDTO);
 }
