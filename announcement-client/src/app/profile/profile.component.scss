@@ -29,7 +29,7 @@
   flex-direction: column;
   margin: 0 auto;
 
-  mat-form-field, button {
+  mat-form-field, button, .upload-file {
     width: calc(100% - 2em);
     margin: 1em;
   }

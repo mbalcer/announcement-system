@@ -2,7 +2,8 @@
   <div class="announcement-details-page">
     <h1>{{activeAnnouncement.title}}</h1>
     <div class="picture">
-      <img src="../../../assets/files/template.png" alt="Photo template">
+      <img *ngIf="!activeAnnouncement.photoUrl" src="../../../assets/files/template.png" alt="Photo template">
+      <img *ngIf="activeAnnouncement.photoUrl" [src]="'../../../assets/photos/' + activeAnnouncement.photoUrl" alt="Announcement photo">
     </div>
     <div class="description">
       <h2 *ngIf="activeAnnouncement.price">Cena: {{activeAnnouncement.price}} zł</h2>

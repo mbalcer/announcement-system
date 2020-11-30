@@ -4,7 +4,8 @@
     <p *ngIf="filterModel.category">z kategorii: {{filterModel.category}}</p>
     <div class="announcement-item" *ngFor="let announcement of announcementPage.content" [routerLink]="'/announcement/' + announcement.id">
       <div class="picture">
-        <img src="../../../assets/files/template.jpg" alt="Photo template">
+        <img *ngIf="!announcement.photoUrl" src="../../assets/files/template.png" alt="Photo template">
+        <img *ngIf="announcement.photoUrl" [src]="'../../assets/photos/' + announcement.photoUrl" alt="Announcement photo">
       </div>
       <div class="main-info">
         <div class="title">{{announcement.title}}</div>

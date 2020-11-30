@@ -38,7 +38,7 @@
       </mat-tab>
       <mat-tab label="Nowe ogłoszenie">
         <div class="form-add-announcement">
-          <form (ngSubmit)="f.form.valid && save(f)" #f="ngForm" novalidate>
+          <form (ngSubmit)="f.form.valid && uploadFile(f)" #f="ngForm" novalidate>
             <mat-form-field>
               <mat-label>Tytuł</mat-label>
               <input matInput
@@ -77,6 +77,12 @@
                 <mat-option *ngFor="let place of places" [value]="place">{{place.city}}</mat-option>
               </mat-select>
             </mat-form-field>
+
+            <div class="upload-file">
+              <label for="file" *ngIf="fileToUpload!=null">{{fileToUpload.name}}</label>
+              <button type="button" mat-raised-button (click)="fileInput.click()" class="btn-upload-file">Wybierz zdjęcie ogłoszenia</button>
+              <input hidden (change)="onFileSelected($event.target.files)" #fileInput type="file" id="file">
+            </div>
 
             <mat-form-field>
               <mat-label>Opis</mat-label>

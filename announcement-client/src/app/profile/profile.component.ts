@@ -8,6 +8,7 @@ import {CategoryService} from '../services/category.service';
 import {MatTabGroup} from '@angular/material/tabs';
 import {UserService} from '../services/user.service';
 import {NgForm} from '@angular/forms';
+import {UploadService} from '../services/upload.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,6 +27,8 @@ export class ProfileComponent implements OnInit {
   newAnnouncement: any = null;
   editAnnouncement = false;
 
+  fileToUpload: File = null;
+
   user: any = {
     username: '',
     email: '',
@@ -42,7 +45,8 @@ export class ProfileComponent implements OnInit {
               private announcementService: AnnouncementService,
               private placeService: PlaceService,
               private categoryService: CategoryService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private uploadService: UploadService) { }
 
   ngOnInit(): void {
     this.clearNewAnnouncement();
@@ -56,7 +60,6 @@ export class ProfileComponent implements OnInit {
   public objectComparisonFunction = function( option, value ): boolean {
     return option.id === value.id;
   };
-
   refreshTable() {
     this.dataSource = new MatTableDataSource<any[]>(this.myAnnouncements);
   }
@@ -66,6 +69,7 @@ export class ProfileComponent implements OnInit {
       title: '',
       description: '',
       price: null,
+      photoUrl: '',
       category: {
         id: null,
         name: ''
@@ -85,6 +89,7 @@ export class ProfileComponent implements OnInit {
   getUser() {
     this.userService.getUserByUsername(this.tokenStorageService.getUser().username).subscribe(result => {
       this.user = result;
+      this.newAnnouncement.user = this.user;
     }, error => console.log(error));
   }
 
@@ -99,6 +104,14 @@ export class ProfileComponent implements OnInit {
     this.placeService.getAllPlacesByVoivodeship(voivodeship).subscribe(result => {
       this.places = result;
     });
+  }
+
+  uploadFile(form) {
+    this.uploadService.uploadFile(this.fileToUpload).subscribe(result => {
+      this.newAnnouncement.photoUrl = result.photoUrl;
+      this.fileToUpload = null;
+      this.save(form);
+    }, error => console.log(error));
   }
 
   save(form) {
@@ -155,5 +168,9 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe(result => {
       this.user = result;
     }, error => console.log(error));
+  }
+
+  onFileSelected(files: FileList) {
+    this.fileToUpload = files.item(0);
   }
 }
