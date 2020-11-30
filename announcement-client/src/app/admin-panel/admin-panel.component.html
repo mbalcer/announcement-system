@@ -3,7 +3,7 @@
     <mat-tab-group mat-align-tabs="center" #tabs>
       <mat-tab label="Ogłoszenia">
         <h2 class="announcements-info">Ogłoszenia</h2>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 announcements-table">
+        <table mat-table [dataSource]="dataSourceAnnouncements" class="mat-elevation-z8 announcements-table">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -27,20 +27,67 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
             <td mat-cell *matCellDef="let row">
-              <button mat-icon-button aria-label="Delete button" (click)="delete(row)">
+              <button mat-icon-button aria-label="Delete button" (click)="deleteAnnouncement(row)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
           </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsAnnouncements"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsAnnouncements;"></tr>
         </table>
         <mat-paginator [length]="announcementPage.totalElements"
                        [pageSize]="10"
                        [pageSizeOptions]="[5, 10, 25, 100]"
                        (page)="pagination($event)">
         </mat-paginator>
+      </mat-tab>
+
+      <mat-tab label="Użytkownicy">
+        <h2 class="announcements-info">Użytkownicy</h2>
+        <table mat-table [dataSource]="dataSourceUsers" class="mat-elevation-z8 announcements-table">
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef> Nazwa użytkownika </th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Imię i nazwisko </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName + ' ' + element.lastName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="change-role">
+            <th mat-header-cell *matHeaderCellDef class="actions-column">Admin</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button aria-label="Change role button" (click)="changeRole(row, 'ROLE_USER')"
+                      matTooltip="Odbierz prawa administratora" *ngIf="row.role.name === 'ROLE_ADMIN'">
+                <mat-icon>check_box</mat-icon>
+              </button>
+
+              <button mat-icon-button aria-label="Change role button" (click)="changeRole(row, 'ROLE_ADMIN')"
+                      matTooltip="Nadaj prawa administratora" *ngIf="row.role.name === 'ROLE_USER'">
+                <mat-icon>check_box_outline_blank</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button aria-label="Delete button" (click)="deleteUser(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
+        </table>
       </mat-tab>
     </mat-tab-group>
   </div>
