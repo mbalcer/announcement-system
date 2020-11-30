@@ -40,4 +40,15 @@ export class TokenStorageService {
       return true;
     }
   }
+
+  public isAdmin() {
+    const userKey = this.getUser();
+    if (userKey == null) {
+      return false;
+    } else if (userKey.role === 'ROLE_ADMIN') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -9,16 +9,19 @@ import {Router} from '@angular/router';
 })
 export class TopbarComponent implements OnInit {
   loggedUser: boolean;
+  loggedAdmin: boolean;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.loggedUser = this.tokenStorageService.isLogged();
+    this.loggedAdmin = this.tokenStorageService.isAdmin();
   }
 
   logout() {
     this.tokenStorageService.signOut();
     this.loggedUser = false;
+    this.loggedAdmin = false;
     this.router.navigateByUrl('/');
   }
 }
