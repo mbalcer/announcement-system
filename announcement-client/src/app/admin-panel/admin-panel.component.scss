@@ -1,0 +1,24 @@
+.admin-panel-page {
+  width: 100%;
+  background: #ffffff;
+  min-height: calc(100vh - 64px);
+}
+
+.admin-panel-tabs {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.announcements-table {
+  margin: 1em;
+  width: calc(100% - 2em);
+}
+
+.actions-column {
+  width: 7.5%;
+}
+
+.announcements-info {
+  text-align: center;
+  margin-top: 1em;
+}

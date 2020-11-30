@@ -1,1 +1,47 @@
-<p>admin-panel works!</p>
+<div class="admin-panel-page">
+  <div class="admin-panel-tabs">
+    <mat-tab-group mat-align-tabs="center" #tabs>
+      <mat-tab label="Ogłoszenia">
+        <h2 class="announcements-info">Ogłoszenia</h2>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 announcements-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Tytuł </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="user">
+            <th mat-header-cell *matHeaderCellDef> Użytkownik </th>
+            <td mat-cell *matCellDef="let element"> {{element.user.username}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Cena </th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button aria-label="Delete button" (click)="delete(row)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="announcementPage.totalElements"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="pagination($event)">
+        </mat-paginator>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
