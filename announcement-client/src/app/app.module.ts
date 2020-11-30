@@ -15,6 +15,7 @@ import {TopbarComponent} from './topbar/topbar.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AnnouncementComponent} from './announcement/announcement.component';
 import {AnnouncementDetailsComponent} from './announcement/announcement-details/announcement-details.component';
+import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AnnouncementDetailsComponent} from './announcement/announcement-details/
     TopbarComponent,
     ProfileComponent,
     AnnouncementComponent,
-    AnnouncementDetailsComponent
+    AnnouncementDetailsComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,

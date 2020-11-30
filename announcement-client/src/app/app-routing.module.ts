@@ -7,6 +7,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from './utils/auth.guard';
 import {AnnouncementComponent} from './announcement/announcement.component';
 import {AnnouncementDetailsComponent} from './announcement/announcement-details/announcement-details.component';
+import {AdminPanelComponent} from './admin-panel/admin-panel.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'announcement', component: AnnouncementComponent},
-  { path: 'announcement/:id', component: AnnouncementDetailsComponent}
+  { path: 'announcement/:id', component: AnnouncementDetailsComponent},
+  { path: 'admin', component: AdminPanelComponent }
 ];
 
 @NgModule({
