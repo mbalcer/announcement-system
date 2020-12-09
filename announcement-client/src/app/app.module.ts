@@ -16,6 +16,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {AnnouncementComponent} from './announcement/announcement.component';
 import {AnnouncementDetailsComponent} from './announcement/announcement-details/announcement-details.component';
 import {AdminPanelComponent} from './admin-panel/admin-panel.component';
+import {JWT_OPTIONS, JwtHelperService} from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import {AdminPanelComponent} from './admin-panel/admin-panel.component';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
