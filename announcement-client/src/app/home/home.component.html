@@ -32,7 +32,7 @@
           <img mat-card-image *ngIf="announcement.photoUrl" [src]="'../../assets/photos/' + announcement.photoUrl" alt="Announcement photo">
           <mat-card-content>
             <p class="card-place">{{announcement.place.city}}</p>
-            <p class="card-time">{{announcement.dateTime}}</p>
+            <p class="card-time">{{announcement.dateTime | date: 'yyyy-MM-dd, HH:mm:ss'}}</p>
           </mat-card-content>
         </mat-card>
       </div>

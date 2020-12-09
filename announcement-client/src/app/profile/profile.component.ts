@@ -118,13 +118,16 @@ export class ProfileComponent implements OnInit {
     if (this.editAnnouncement) {
       this.announcementService.putAnnouncement(this.newAnnouncement).subscribe(result => {
         this.clearNewAnnouncement();
+        this.clearVoivodeship();
         this.refreshTable();
         this.editAnnouncement = false;
       });
     } else {
       this.announcementService.postAnnouncement(this.newAnnouncement).subscribe(result => {
         this.clearNewAnnouncement();
+        this.clearVoivodeship();
         this.myAnnouncements.push(result);
+        this.refreshTable();
       }, error => console.log(error));
     }
     form.submitted = false;
