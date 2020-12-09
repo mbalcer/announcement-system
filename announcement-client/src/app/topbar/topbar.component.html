@@ -4,15 +4,15 @@
   <button mat-raised-button routerLink="/login" aria-label="Sign in button" *ngIf="!loggedUser">
     <span>Zaloguj się</span>
   </button>
-  <button mat-button routerLink="/admin" aria-label="Profile button" *ngIf="loggedAdmin">
+  <button mat-button routerLink="/admin" aria-label="Profile button" *ngIf="loggedAdmin" matTooltip="Panel admina">
     <mat-icon>dashboard</mat-icon>
-    <span>Panel admina</span>
+    <span class="responsive-text">Panel admina</span>
   </button>
-  <button mat-button routerLink="/profile" aria-label="Profile button" *ngIf="loggedUser">
+  <button mat-button routerLink="/profile" aria-label="Profile button" *ngIf="loggedUser" matTooltip="Moje ogłoszenia">
     <mat-icon>person</mat-icon>
-    <span>Moje ogłoszenia</span>
+    <span class="responsive-text">Moje ogłoszenia</span>
   </button>
-  <button mat-icon-button (click)="logout()" aria-label="Sign out button" *ngIf="loggedUser">
+  <button mat-icon-button (click)="logout()" aria-label="Sign out button" *ngIf="loggedUser" matTooltip="Wyloguj się">
     <mat-icon>power_settings_new</mat-icon>
   </button>
 </mat-toolbar>

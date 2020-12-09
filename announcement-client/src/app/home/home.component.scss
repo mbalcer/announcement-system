@@ -17,6 +17,24 @@
     width: 17%;
     margin: 3em 1.5%;
   }
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+
+    > mat-form-field, > button {
+      width: 90%;
+      margin: 1em 5%;
+    }
+  }
 }
 
 .clear-voivodeship {
@@ -39,11 +57,19 @@
   flex-direction: row;
   width: 60%;
   margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }
 
 .example-card {
   margin: 0.5em;
   cursor: pointer;
+
+  @media (max-width: 1024px) {
+    margin: 0.5em 0;
+  }
 }
 
 .title-card {

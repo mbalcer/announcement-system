@@ -7,6 +7,14 @@
 .profile-tabs {
   width: 60%;
   margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 }
 
 .announcements-table {
@@ -28,6 +36,14 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 
   mat-form-field, button, .upload-file {
     width: calc(100% - 2em);
