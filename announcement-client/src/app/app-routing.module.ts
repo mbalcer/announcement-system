@@ -8,6 +8,7 @@ import {AuthGuard} from './utils/auth.guard';
 import {AnnouncementComponent} from './announcement/announcement.component';
 import {AnnouncementDetailsComponent} from './announcement/announcement-details/announcement-details.component';
 import {AdminPanelComponent} from './admin-panel/admin-panel.component';
+import {AdminGuard} from './utils/admin.guard';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'announcement', component: AnnouncementComponent},
   { path: 'announcement/:id', component: AnnouncementDetailsComponent},
-  { path: 'admin', component: AdminPanelComponent, canActivate: [AuthGuard] }
+  { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

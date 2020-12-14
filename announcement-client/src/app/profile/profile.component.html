@@ -107,7 +107,6 @@
             <mat-form-field>
               <mat-label>Imię</mat-label>
               <input matInput [(ngModel)]="user.firstName" name="firstName" required maxlength="30" #firstName="ngModel">
-              <mat-hint align="end">{{firstName.value.length}} / 30</mat-hint>
             </mat-form-field>
             <div class="message" *ngIf="fProfile.submitted && firstName.invalid">
               <span class="error" *ngIf="firstName.errors.required">First name is required!</span>
@@ -116,7 +115,6 @@
             <mat-form-field>
               <mat-label>Nazwisko</mat-label>
               <input matInput [(ngModel)]="user.lastName" name="lastName" required maxlength="30" #lastName="ngModel">
-              <mat-hint align="end">{{lastName.value.length}} / 30</mat-hint>
             </mat-form-field>
             <div class="message" *ngIf="fProfile.submitted && lastName.invalid">
               <span class="error" *ngIf="lastName.errors.required">Last name is required!</span>
@@ -135,7 +133,6 @@
               <mat-label>Numer telefonu</mat-label>
               <input placeholder="+48........." matInput [(ngModel)]="user.phoneNumber"
                      name="phoneNumber" #phoneNumber="ngModel">
-              <mat-hint align="end">{{phoneNumber.value.length}} / 12</mat-hint>
             </mat-form-field>
 
             <button mat-raised-button color="primary">Edytuj profil</button>
