@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.mbalcer.announcementsystem.service.UploadService;
 
 import java.io.*;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,12 +21,17 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public File copyFile(MultipartFile file) {
         InputStream input = null;
+        String originalFilename = null;
         try {
             input = file.getInputStream();
+            originalFilename = Optional.ofNullable(file.getOriginalFilename()).orElseThrow(FileNotFoundException::new);
+        } catch (FileNotFoundException e) {
+            log.error("File not found: {}", e.getMessage());
         } catch (IOException e) {
             log.error("Error during get input stream from file: {}", e.getMessage());
         }
-        File newFile = new File(photosPath + UUID.randomUUID() + file.getOriginalFilename().substring(file.getOriginalFilename().length() - 4));
+
+        File newFile = new File(photosPath + UUID.randomUUID() + originalFilename.substring(originalFilename.length() - 4));
         try(OutputStream outputStream = new FileOutputStream(newFile)){
             IOUtils.copy(input, outputStream);
         } catch (FileNotFoundException e) {
@@ -34,7 +40,7 @@ public class UploadServiceImpl implements UploadService {
             log.error("Error during copy file: {}", e.getMessage());
         }
 
-        log.info("Copy file " + file.getOriginalFilename() + " to " + newFile.getAbsolutePath());
+        log.info("Copy file " + originalFilename + " to " + newFile.getAbsolutePath());
 
         return newFile;
     }
