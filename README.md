@@ -11,21 +11,29 @@ An application to display, add, and manage announcements.
 <p>
 <img src="https://i.imgur.com/iuLdovY.png" alt="demo1" width="300"/>
 <img src="https://i.imgur.com/N8NyjYJ.png" alt="demo2" width="300"/>
-<img src="https://i.imgur.com/5uIKhj6.png" alt="demo3" width="300"/>
 <img src="https://i.imgur.com/5Qj5ck3.png" alt="demo4" width="300"/>
 <img src="https://i.imgur.com/WRoRUZP.png" alt="demo4" width="300"/>
+<img src="https://i.imgur.com/5uIKhj6.png" alt="demo3" width="300"/>
 </p>
 
 ## Technologies
+### Backend
 <p>
 <img alt='Java 11' src='https://img.shields.io/badge/-Java%2011-e48620?logo=java&logoColor=white&style=plastic' />
-<img alt='Spring Boot 2.4.3' src='https://img.shields.io/badge/-Spring%20Boot%202.4.3-6db33f?logo=spring&logoColor=white&style=plastic' />
-<img alt='Spring Security' src='https://img.shields.io/badge/-Spring%20Security-6db33f?logo=&logoColor=white&style=plastic' />
+<img alt='Spring Boot 2.3.5' src='https://img.shields.io/badge/-Spring%20Boot%202.3.5-6db33f?logo=spring&logoColor=white&style=plastic' />
+<img alt='Spring Security' src='https://img.shields.io/badge/-Spring%20Security-6db33f?logo=Spring%20Security&logoColor=white&style=plastic' />
 <img alt='JSON Web Token' src='https://img.shields.io/badge/-JSON Web Token-02b3e9?logo=&logoColor=white&style=plastic' />
-<img alt='PostgreSQL 42.2.5' src='https://img.shields.io/badge/-PostgreSQL%2042.2.5-31648d?logo=PostgreSQL&logoColor=white&style=plastic' />
-<img alt='Gradle' src='https://img.shields.io/badge/-Gradle-032e38?logo=gradle&logoColor=white&style=plastic' />
-<img alt='Angular 11.2' src='https://img.shields.io/badge/-Angular%2011.2-d60e2f?logo=angular&logoColor=white&style=plastic' />
+<img alt='PostgreSQL' src='https://img.shields.io/badge/-PostgreSQL-31648d?logo=PostgreSQL&logoColor=white&style=plastic' />
+<img alt='Maven' src='https://img.shields.io/badge/-Maven-C71A36?logo=Apache%20Maven&logoColor=white&style=plastic' />
+<img alt='Lombok' src='https://img.shields.io/badge/-Lombok-C90023?logo=&logoColor=white&style=plastic' />
 </p>
+
+### Frontend
+<p>
+  <img alt='Angular 9' src='https://img.shields.io/badge/-Angular%209-d60e2f?logo=angular&logoColor=white&style=plastic' />
+  <img alt='Angular Material UI' src='https://img.shields.io/badge/-Angular%20Material%20UI-F7A225?logo=&logoColor=white&style=plastic' />
+</p>
+
 
 ## Usage
 To run the application you will need <a href="https://git-scm.com/">Git</a>, <a href="https://nodejs.org/en/download/">Node.js</a>, <a href="https://www.oracle.com/java/technologies/javase-downloads.html">Java</a> installed on your computer.
