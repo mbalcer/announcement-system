@@ -11,9 +11,9 @@ An application to display, add, and manage announcements.
 <p>
 <img src="https://i.imgur.com/iuLdovY.png" alt="demo1" width="300"/>
 <img src="https://i.imgur.com/N8NyjYJ.png" alt="demo2" width="300"/>
-<img src="https://i.imgur.com/5Qj5ck3.png" alt="demo4" width="300"/>
-<img src="https://i.imgur.com/WRoRUZP.png" alt="demo4" width="300"/>
-<img src="https://i.imgur.com/5uIKhj6.png" alt="demo3" width="300"/>
+<img src="https://i.imgur.com/WRoRUZP.png" alt="demo3" width="300"/>
+<img src="https://i.imgur.com/5uIKhj6.png" alt="demo4" width="300"/>
+<img src="https://i.imgur.com/5Qj5ck3.png" alt="demo5" width="300"/>
 </p>
 
 ## Technologies
